@@ -2,8 +2,8 @@ export interface ITask {
   id: number;
   title: string;
   description: string;
-  status: "pending" | "in-progress" | "completed";
-  priority: "low" | "medium" | "high";
+  status: 'pending' | 'in-progress' | 'completed';
+  priority: 'low' | 'medium' | 'high';
   dueDate: Date;
   userId: number;
   deletedAt?: Date | null;
@@ -12,11 +12,13 @@ export interface ITask {
 }
 
 export interface ITaskFilters {
-  status?: "pending" | "completed";
-  priority?: "low" | "medium" | "high";
+  status?: 'pending' | 'completed';
+  priority?: 'low' | 'medium' | 'high';
   search?: string;
-  sortOrder?: "ASC" | "DESC";
+  sortOrder?: 'ASC' | 'DESC';
 }
 
-export interface ITaskCreation
-  extends Omit<ITask, "id" | "createdAt" | "updatedAt" | "deletedAt"> {}
+export interface ITaskCreation extends Omit<
+  ITask,
+  'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+> {}

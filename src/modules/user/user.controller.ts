@@ -1,16 +1,16 @@
-import { Request, Response } from "express";
-import { UserService } from "./user.service";
-import { successResponse } from "../../constant/response";
-import { AsyncHandler } from "../../utils/AsyncHandler";
+import { Request, Response } from 'express';
+import { UserService } from './user.service';
+import { successResponse } from '../../constant/response';
+import { AsyncHandler } from '../../utils/AsyncHandler';
 import {
   COOKIE_OPTIONS,
   REFRESH_TOKEN_MAX_AGE,
   ACCESS_TOKEN_MAX_AGE,
-} from "../../constant/general";
+} from '../../constant/general';
 
 // Helper function to set refresh token cookie
 const setRefreshTokenCookie = (res: Response, token: string) => {
-  res.cookie("refreshToken", token, {
+  res.cookie('refreshToken', token, {
     ...COOKIE_OPTIONS,
     maxAge: REFRESH_TOKEN_MAX_AGE,
   });
@@ -18,7 +18,7 @@ const setRefreshTokenCookie = (res: Response, token: string) => {
 
 // Helper function to set access token cookie
 const setAccessTokenCookie = (res: Response, token: string) => {
-  res.cookie("accessToken", token, {
+  res.cookie('accessToken', token, {
     ...COOKIE_OPTIONS,
     maxAge: ACCESS_TOKEN_MAX_AGE,
   });
@@ -26,8 +26,8 @@ const setAccessTokenCookie = (res: Response, token: string) => {
 
 // Helper function to clear auth cookies
 const clearAuthCookies = (res: Response) => {
-  res.clearCookie("accessToken", COOKIE_OPTIONS);
-  res.clearCookie("refreshToken", COOKIE_OPTIONS);
+  res.clearCookie('accessToken', COOKIE_OPTIONS);
+  res.clearCookie('refreshToken', COOKIE_OPTIONS);
 };
 
 export const UserController = {
@@ -41,7 +41,7 @@ export const UserController = {
     res
       .status(201)
       .json(
-        successResponse({ user, accessToken }, "User registered successfully")
+        successResponse({ user, accessToken }, 'User registered successfully')
       );
   }),
 
@@ -56,28 +56,26 @@ export const UserController = {
     setRefreshTokenCookie(res, refreshToken);
     setAccessTokenCookie(res, accessToken);
 
-    res.json(successResponse({ user, accessToken }, "Login successful"));
+    res.json(successResponse({ user, accessToken }, 'Login successful'));
   }),
 
   refresh: AsyncHandler.handle(async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
 
-    const {
-      accessToken,
-      refreshToken: newRefreshToken,
-    } = await UserService.refreshAccessToken(refreshToken);
+    const { accessToken, refreshToken: newRefreshToken } =
+      await UserService.refreshAccessToken(refreshToken);
 
     setRefreshTokenCookie(res, newRefreshToken);
     setAccessTokenCookie(res, accessToken);
 
-    res.json(successResponse({ accessToken }, "Access token refreshed"));
+    res.json(successResponse({ accessToken }, 'Access token refreshed'));
   }),
 
   profile: AsyncHandler.handle(async (req, res) => {
     const userId = (req as any).user.id;
 
     const user = await UserService.getProfile(userId);
-    res.json(successResponse({ user }, "User profile fetched successfully"));
+    res.json(successResponse({ user }, 'User profile fetched successfully'));
   }),
 
   logout: AsyncHandler.handle(async (req: Request, res: Response) => {
@@ -87,6 +85,6 @@ export const UserController = {
 
     clearAuthCookies(res);
 
-    res.json(successResponse({}, "Logged out successfully"));
+    res.json(successResponse({}, 'Logged out successfully'));
   }),
 };

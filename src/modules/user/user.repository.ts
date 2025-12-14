@@ -1,4 +1,4 @@
-import { User } from "../../config/database";
+import { User } from '../../config/database';
 
 export const UserRepository = {
   create: (data: any) => User.create(data),

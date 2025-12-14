@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
 type EnvVariables = {
@@ -15,7 +15,7 @@ const getEnvVar = <K extends keyof EnvVariables>(key: K): EnvVariables[K] => {
   const value = process.env[key];
   if (!value) throw new Error(`Environment variable "${key}" is not set.`);
 
-  if (key === "PORT") return Number(value) as EnvVariables[K];
+  if (key === 'PORT') return Number(value) as EnvVariables[K];
   return value as EnvVariables[K];
 };
 

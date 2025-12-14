@@ -1,17 +1,17 @@
-import { Task } from "../../config/database";
-import { Op } from "sequelize";
+import { Task } from '../../config/database';
+import { Op } from 'sequelize';
 
 interface FindAllFilters {
   userId: number;
   status?: string;
   priority?: string;
   search?: string;
-  sortOrder?: "ASC" | "DESC";
+  sortOrder?: 'ASC' | 'DESC';
 }
 export const TaskRepository = {
   create: (data: any) => Task.create(data),
 
-   findAll: (filters: FindAllFilters) => {
+  findAll: (filters: FindAllFilters) => {
     const where: any = {
       userId: filters.userId,
     };
@@ -31,20 +31,17 @@ export const TaskRepository = {
       ];
     }
 
-    const sortOrder = filters.sortOrder || "DESC";
+    const sortOrder = filters.sortOrder || 'DESC';
 
     return Task.findAll({
       where,
-      order: [["createdAt", sortOrder]],
+      order: [['createdAt', sortOrder]],
     });
   },
 
-  findById: (id: number) =>
-    Task.findOne({ where: { id } }),
+  findById: (id: number) => Task.findOne({ where: { id } }),
 
-  update: (id: number, data: any) =>
-    Task.update(data, { where: { id } }),
+  update: (id: number, data: any) => Task.update(data, { where: { id } }),
 
-  softDelete: (id: number) =>
-    Task.destroy({ where: { id } }),
+  softDelete: (id: number) => Task.destroy({ where: { id } }),
 };

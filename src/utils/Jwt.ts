@@ -1,13 +1,13 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { Config } from "../config/env";
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { Config } from '../config/env';
 import {
   JWT_ACCESS_TOKEN_EXPIRY,
   JWT_REFRESH_TOKEN_EXPIRY,
-} from "../constant/general";
+} from '../constant/general';
 
 export class Jwt {
-  private static accessSecret = Config.get("JWT_ACCESS_SECRET");
-  private static refreshSecret = Config.get("JWT_REFRESH_SECRET");
+  private static accessSecret = Config.get('JWT_ACCESS_SECRET');
+  private static refreshSecret = Config.get('JWT_REFRESH_SECRET');
 
   static generateAccessToken(payload: object): string {
     return jwt.sign(payload, this.accessSecret, {

@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-import { Jwt } from "../utils/Jwt";
+import { Request, Response, NextFunction } from 'express';
+import { Jwt } from '../utils/Jwt';
 
 export const authMiddleware = (
   req: Request,
@@ -7,8 +7,10 @@ export const authMiddleware = (
   next: NextFunction
 ) => {
   // Check for token in Authorization header first (Bearer token)
-  let token: string | undefined =
-    req.headers.authorization?.replace("Bearer ", "");
+  let token: string | undefined = req.headers.authorization?.replace(
+    'Bearer ',
+    ''
+  );
 
   // Fallback to cookie if Authorization header is not present
   if (!token) {
@@ -16,7 +18,7 @@ export const authMiddleware = (
   }
 
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ error: 'Unauthorized' });
   }
 
   try {
@@ -27,6 +29,6 @@ export const authMiddleware = (
 
     next();
   } catch (error) {
-    return res.status(401).json({ error: "Invalid or expired token" });
+    return res.status(401).json({ error: 'Invalid or expired token' });
   }
 };

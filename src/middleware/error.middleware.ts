@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { ApiError } from "../utils/ApiError";
-import { ZodError } from "zod";
-import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from 'express';
+import { ApiError } from '../utils/ApiError';
+import { ZodError } from 'zod';
+import jwt from 'jsonwebtoken';
 
 export const errorMiddleware = (
   err: any,
@@ -22,7 +22,7 @@ export const errorMiddleware = (
 
     return res.status(400).json({
       success: false,
-      message: "Validation failed",
+      message: 'Validation failed',
       errors: formattedErrors,
     });
   }
@@ -43,15 +43,15 @@ export const errorMiddleware = (
   ) {
     return res.status(401).json({
       success: false,
-      message: "Invalid or expired token",
+      message: 'Invalid or expired token',
     });
   }
 
   /* ------------------ UNKNOWN ERRORS ------------------ */
-  console.error("Unhandled error:", err);
+  console.error('Unhandled error:', err);
 
   return res.status(500).json({
     success: false,
-    message: "Internal Server Error",
+    message: 'Internal Server Error',
   });
 };

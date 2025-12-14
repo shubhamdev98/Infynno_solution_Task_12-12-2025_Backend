@@ -1,4 +1,4 @@
-export const successResponse = (data: any, message = "Success") => {
+export const successResponse = (data: unknown, message = 'Success') => {
   return {
     success: true,
     message,
@@ -6,7 +6,11 @@ export const successResponse = (data: any, message = "Success") => {
   };
 };
 
-export const errorResponse = (message: string, statusCode = 400, errors?: any) => {
+export const errorResponse = (
+  message: string,
+  statusCode = 400,
+  errors?: unknown
+) => {
   return {
     success: false,
     message,
